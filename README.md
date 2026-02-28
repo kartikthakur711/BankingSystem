@@ -8,6 +8,7 @@ Implemented phases:
 2. Phase 2: Accounts + Deposit/Withdraw + Transfer + Transaction History
 3. Phase 3: Beneficiaries + Notifications + Monthly CSV Statement + Admin Freeze/Unfreeze
 4. Phase 4: Admin listings + Dockerized runtime + Postman collection
+5. Phase 5: Hardening (Actuator, CORS config, rate limiting, prod profile, env template)
 
 ## Stack
 - Java 21
@@ -45,6 +46,11 @@ Implemented phases:
    - `JWT_SECRET`
    - `JWT_ACCESS_EXPIRATION_MS`
    - `JWT_REFRESH_EXPIRATION_MS`
+   - `CORS_ALLOWED_ORIGINS` (default: `http://localhost:3000`)
+   - `RATE_LIMIT_LOGIN_MAX_REQUESTS`
+   - `RATE_LIMIT_LOGIN_WINDOW_MS`
+   - `RATE_LIMIT_TRANSFER_MAX_REQUESTS`
+   - `RATE_LIMIT_TRANSFER_WINDOW_MS`
    - `BOOTSTRAP_ADMIN_ENABLED` (default: `true`)
    - `BOOTSTRAP_ADMIN_FULL_NAME` (default: `Platform Admin`)
    - `BOOTSTRAP_ADMIN_EMAIL` (default: `admin@banking.local`)
@@ -150,10 +156,10 @@ curl -X POST http://localhost:8080/api/v1/accounts \
 ```
 
 ## Next Planned Phase
-1. Integration tests for complete happy path + failure path
-2. Statement PDF generation
-3. Beneficiary ownership + business rule extensions
-4. Audit/event logging improvements
+1. Account lockout policy after repeated failed logins
+2. Token revocation endpoint for force logout
+3. Database migration/versioning strategy
+4. Audit/event trace enrichment
 
 ## Docker Run
 1. Build jar:
@@ -171,3 +177,18 @@ curl -X POST http://localhost:8080/api/v1/accounts \
   - `src/test/java/com/kartik/bankingsystem/integration/AuthFlowIntegrationTest.java`
 - Run tests:
   - `mvn test`
+  - if Docker unavailable, tests auto-skip (`@Testcontainers(disabledWithoutDocker = true)`)
+
+## Hardening Notes
+1. Actuator endpoints enabled:
+   - `/actuator/health`
+   - `/actuator/info`
+   - `/actuator/metrics`
+2. Rate limits are applied to:
+   - `POST /api/v1/auth/login`
+   - `POST /api/v1/accounts/transfer`
+3. CORS is env-driven (`CORS_ALLOWED_ORIGINS`) instead of wildcard.
+4. Production profile config:
+   - `src/main/resources/application-prod.yml`
+5. Environment template:
+   - `.env.example`

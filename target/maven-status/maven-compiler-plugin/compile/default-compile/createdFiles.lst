@@ -28,6 +28,7 @@ com/kartik/bankingsystem/controller/AccountController.class
 com/kartik/bankingsystem/dto/AdminUserResponse.class
 com/kartik/bankingsystem/entity/Account.class
 com/kartik/bankingsystem/entity/RefreshToken.class
+com/kartik/bankingsystem/security/RateLimitFilter$LimitConfig.class
 com/kartik/bankingsystem/entity/User.class
 com/kartik/bankingsystem/dto/AuthResponse.class
 com/kartik/bankingsystem/repository/AccountRepository.class
@@ -35,6 +36,7 @@ com/kartik/bankingsystem/entity/Notification.class
 com/kartik/bankingsystem/service/AuthenticationService.class
 com/kartik/bankingsystem/dto/AddBeneficiaryRequest.class
 com/kartik/bankingsystem/repository/TransactionRepository.class
+com/kartik/bankingsystem/security/RateLimitFilter$Counter.class
 com/kartik/bankingsystem/entity/Account$AccountBuilder.class
 com/kartik/bankingsystem/entity/Notification$NotificationBuilder.class
 com/kartik/bankingsystem/service/NotificationService.class
@@ -59,3 +61,4 @@ com/kartik/bankingsystem/controller/UserController.class
 com/kartik/bankingsystem/entity/Transaction$TransactionBuilder.class
 com/kartik/bankingsystem/BankingSystemApplication.class
 com/kartik/bankingsystem/service/RefreshTokenService.class
+com/kartik/bankingsystem/security/RateLimitFilter.class
