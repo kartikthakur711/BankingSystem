@@ -2,7 +2,7 @@ services:
   - type: web
     name: banking-system
     runtime: docker
-    repo: https://github.com/<your-username>/<your-repo>
+    repo: https://github.com/kartikthakur711/BankingSystem
     branch: main
     plan: free
     autoDeploy: true
