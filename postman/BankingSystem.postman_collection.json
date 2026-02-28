@@ -1,0 +1,94 @@
+{
+  "info": {
+    "name": "BankingSystem API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Login Admin",
+      "request": {
+        "method": "POST",
+        "header": [
+          {"key": "Content-Type", "value": "application/json"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"admin@banking.local\",\n  \"password\": \"Admin@12345\"\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/auth/login"
+      }
+    },
+    {
+      "name": "Accounts - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          {"key": "Authorization", "value": "Bearer {{accessToken}}"},
+          {"key": "Content-Type", "value": "application/json"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountType\": \"SAVINGS\",\n  \"initialDeposit\": 1000\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/accounts"
+      }
+    },
+    {
+      "name": "Beneficiaries - Add",
+      "request": {
+        "method": "POST",
+        "header": [
+          {"key": "Authorization", "value": "Bearer {{accessToken}}"},
+          {"key": "Content-Type", "value": "application/json"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nickname\": \"Friend\",\n  \"beneficiaryAccountNumber\": \"AC1000000001\"\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/beneficiaries"
+      }
+    },
+    {
+      "name": "Transfer",
+      "request": {
+        "method": "POST",
+        "header": [
+          {"key": "Authorization", "value": "Bearer {{accessToken}}"},
+          {"key": "Content-Type", "value": "application/json"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"fromAccountNumber\": \"{{fromAccount}}\",\n  \"toAccountNumber\": \"{{toAccount}}\",\n  \"amount\": 50,\n  \"description\": \"test transfer\",\n  \"idempotencyKey\": \"{{idempotencyKey}}\"\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/accounts/transfer"
+      }
+    },
+    {
+      "name": "Notifications - List",
+      "request": {
+        "method": "GET",
+        "header": [
+          {"key": "Authorization", "value": "Bearer {{accessToken}}"}
+        ],
+        "url": "{{baseUrl}}/api/v1/notifications?page=0&size=20"
+      }
+    },
+    {
+      "name": "Admin - Users",
+      "request": {
+        "method": "GET",
+        "header": [
+          {"key": "Authorization", "value": "Bearer {{accessToken}}"}
+        ],
+        "url": "{{baseUrl}}/api/v1/admin/users"
+      }
+    }
+  ],
+  "variable": [
+    {"key": "baseUrl", "value": "http://localhost:8080"},
+    {"key": "accessToken", "value": ""},
+    {"key": "fromAccount", "value": ""},
+    {"key": "toAccount", "value": ""},
+    {"key": "idempotencyKey", "value": "unique-key-1"}
+  ]
+}
